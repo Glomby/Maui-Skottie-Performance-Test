@@ -1,0 +1,195 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ContentView x:Class="EvergineIntegrationApp.Views.Setup.Guides.GuidesContentView"
+             xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:d="http://schemas.microsoft.com/dotnet/2021/maui/design"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:guides="clr-namespace:EvergineIntegrationApp.Views.Setup.Guides"
+             xmlns:lottie="clr-namespace:SkiaSharp.Extended.UI.Controls;assembly=SkiaSharp.Extended.UI"
+             mc:Ignorable="d"
+             BackgroundColor="Black">
+    <ContentView.Resources>
+        <ResourceDictionary>
+            <guides:GuidesDataTemplateSelector x:Key="templateSelector"/>
+
+            <!--Base Style-->
+            <Color x:Key="BackgroundBase">#0F1117</Color>
+            <Color x:Key="BackButtonBase">#0F1117</Color>
+            <Color x:Key="BackAccentBase">#1DE4DF</Color>
+            <Color x:Key="TextBase">#FFFFFF</Color>
+            <Color x:Key="AccentBase">#1DE4DF</Color>
+            <Color x:Key="GlowBase">#00FFFF</Color>
+            <Style x:Key="LottieBackgroundBase"
+                   TargetType="lottie:SKLottieView">
+                <Setter Property="Source"
+                        Value="guide_BackgroundGradientAnim.json" />
+            </Style>
+            <Style x:Key="ButtonTextBase"
+                   TargetType="Button">
+                <Setter Property="FontFamily"
+                        Value="{StaticResource TextRegular}"/>
+            </Style>
+
+            <!--Colored Style-->
+            <Color x:Key="BackgroundColored">#0F1117</Color>
+            <Color x:Key="BackButtonColored">#0F1117</Color>
+            <Color x:Key="BackAccentColored">#1DE4DF</Color>
+            <Color x:Key="TextColored">#FFFFFF</Color>
+            <Color x:Key="AccentColored">#1DE4DF</Color>
+            <Color x:Key="GlowColored">#00FFFF</Color>
+            <Style x:Key="LottieBackgroundColored"
+                   TargetType="lottie:SKLottieView">
+                <Setter Property="Source"
+                        Value="guide_BackgroundGradientAnim.json" />
+            </Style>
+            <Style x:Key="ButtonTextColored"
+                   TargetType="Button">
+                <Setter Property="FontFamily"
+                        Value="{StaticResource TextRegular}"/>
+            </Style>
+
+            <!--Gray Style-->
+            <Color x:Key="BackgroundGray">#FFFFFF</Color>
+            <Color x:Key="BackButtonGray">#545E65</Color>
+            <Color x:Key="BackAccentGray">#545E65</Color>
+            <Color x:Key="TextGray">#19191E</Color>
+            <Color x:Key="AccentGray">#FFFFFF</Color>
+            <Color x:Key="GlowGray">#3FFFFFFF</Color>
+            <Style x:Key="LottieBackgroundGray"
+                   TargetType="lottie:SKLottieView">
+                <Setter Property="Source"
+                        Value="guide_BackgroundGradientAnim_Gray.json" />
+            </Style>
+            <Style x:Key="ButtonTextGray"
+                   TargetType="Button">
+                <Setter Property="FontFamily"
+                        Value="{StaticResource TextBold}"/>
+            </Style>
+            
+        </ResourceDictionary>
+    </ContentView.Resources>
+
+    <Grid x:Name="MainContainer"
+          VerticalOptions="FillAndExpand"
+          HorizontalOptions="FillAndExpand" 
+          RowSpacing="0"
+          IgnoreSafeArea="True">
+
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="0" />
+        </Grid.RowDefinitions>
+
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width=".15*" />
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width=".15*" />
+        </Grid.ColumnDefinitions>
+
+        <lottie:SKLottieView x:Name="LottieBG"
+                             Grid.RowSpan="3"
+                             Grid.ColumnSpan="3"
+                             VerticalOptions="Fill"
+                             HorizontalOptions="Fill"
+                             FlowDirection="MatchParent"
+                             ScaleX="1.5"
+                             ScaleY="1"
+                             IsAnimationEnabled="True"
+                             Source="guide_BackgroundGradientAnim.json"                             
+                             InputTransparent="True"
+                             AutomationProperties.IsInAccessibleTree="False"/>
+
+        <CarouselView x:Name="MainCarouselView"
+                      Grid.Row="0"
+                      Grid.Column="0"
+                      Grid.ColumnSpan="3"
+                      IndicatorView="carouselIndicator"
+                      HorizontalScrollBarVisibility="Never"
+                      PositionChanged="CarouselView_PositionChanged"
+                      Loop="False"
+                      IsBounceEnabled="False"
+                      ItemTemplate="{StaticResource templateSelector}"/>
+
+        <StackLayout Grid.Row="1"
+                     Grid.Column="0"
+                     Grid.ColumnSpan="3"
+                     IgnoreSafeArea="True"
+                     Margin="0,0,0,25"
+                     Spacing="20"
+                     HorizontalOptions="Center"
+                     VerticalOptions="EndAndExpand"
+                     Orientation="Vertical">
+
+            <Frame x:Name="DontShowFrame" IsVisible="False" BackgroundColor="Transparent" BorderColor="Transparent" HasShadow="False" VerticalOptions="EndAndExpand" HorizontalOptions="Center" Padding="0">
+                <Frame.GestureRecognizers>
+                    <TapGestureRecognizer Tapped="DontShowFrame_Tapped"/>
+                </Frame.GestureRecognizers>
+                <StackLayout Orientation="Horizontal" 
+                             Spacing="10" 
+                             IgnoreSafeArea="True">
+                    <Label Text="Show Again"
+                           FontFamily="{StaticResource TextRegular}"
+                           TextColor="White"
+                           VerticalOptions="Center"/>
+
+                    <Grid HorizontalOptions="End" 
+                          IgnoreSafeArea="True">
+                        <Frame BorderColor="White" BackgroundColor="Transparent" HorizontalOptions="Center" VerticalOptions="Center" CornerRadius="12" WidthRequest="24" HeightRequest="24" HasShadow="False" Padding="0"/>
+                        <Frame x:Name="CheckboxCheckmark" BorderColor="Transparent" HorizontalOptions="Center" VerticalOptions="Center" BackgroundColor="White" CornerRadius="6" WidthRequest="12" HeightRequest="12" HasShadow="False" Padding="0"/>
+                    </Grid>
+                </StackLayout>
+            </Frame>
+
+            <IndicatorView x:Name="carouselIndicator"
+                           IndicatorColor="#4B5359"
+                           SelectedIndicatorColor="{x:DynamicResource AccentBase}"
+                           HorizontalOptions="Center"
+                           VerticalOptions="Center"/>
+
+            <StackLayout Spacing="20"
+                         IgnoreSafeArea="True"
+                         HorizontalOptions="Center"
+                         VerticalOptions="CenterAndExpand"
+                         Orientation="Horizontal">
+
+                <Button x:Name="Back_Button"
+                        Text="&#xe820;"
+                        FontFamily="Icons"
+                        HeightRequest="42"
+                        WidthRequest="42" 
+                        Padding="0"
+                        CornerRadius="21"
+                        BackgroundColor="{x:DynamicResource BackButtonBase}"
+                        BorderColor="{x:DynamicResource BackAccentBase}"
+                        TextColor="{x:DynamicResource TextBase}"
+                        BorderWidth="1"
+                        AutomationProperties.Name="Go Back"
+                        Clicked="Back_Clicked"/>
+
+                <Button x:Name="PrimaryActionButton"
+                        Style="{DynamicResource ButtonTextBase}"
+                        HorizontalOptions="Center"
+                        HeightRequest="48"
+                        CornerRadius="24"
+                        BorderWidth="1"
+                        BackgroundColor="{x:DynamicResource BackgroundBase}"
+                        BorderColor="{x:DynamicResource AccentBase}"
+                        TextColor="{x:DynamicResource TextBase}"
+                        Text="Next"
+                        Clicked="Next_Clicked"/>
+            </StackLayout>
+        </StackLayout>
+
+        <Image x:Name="BlackOutImage" 
+               Grid.Row="1"
+               Grid.RowSpan="2"
+               Grid.Column="0"
+               Grid.ColumnSpan="3"
+               BackgroundColor="Black"
+               Opacity=".8"
+               IsVisible="False"/>
+
+    </Grid>
+</ContentView>
+

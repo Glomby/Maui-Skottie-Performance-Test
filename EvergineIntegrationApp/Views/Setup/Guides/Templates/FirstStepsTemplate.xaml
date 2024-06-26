@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Grid xmlns="http://schemas.microsoft.com/dotnet/2021/maui" 
+      xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" 
+      xmlns:lottie="clr-namespace:SkiaSharp.Extended.UI.Controls;assembly=SkiaSharp.Extended.UI"
+      xmlns:model="clr-namespace:EvergineIntegrationApp.Models"
+      x:DataType="model:GuidesItem"
+      x:Class="EvergineIntegrationApp.Views.Setup.Guides.Templates.FirstStepsTemplate">
+    
+    <Grid.RowDefinitions>
+        <RowDefinition Height=".15*" />
+        <RowDefinition Height="*" />
+    </Grid.RowDefinitions>
+
+    <Grid.ColumnDefinitions>
+        <ColumnDefinition Width=".15*" />
+        <ColumnDefinition Width="*" />
+        <ColumnDefinition Width=".15*" />
+    </Grid.ColumnDefinitions>
+
+    <Grid x:Name="MainContainer"
+          Grid.Row="1"
+          Grid.Column="0"
+          Grid.ColumnSpan="3"
+          VerticalOptions="FillAndExpand">
+        
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="1*" />
+        </Grid.RowDefinitions>
+
+        <Grid x:Name="TopTextContainer"
+              Grid.Row="0">
+            
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width=".1*" />
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width=".1*" />
+            </Grid.ColumnDefinitions>
+
+            <StackLayout Spacing="20"
+                         Grid.Column="1">
+
+                <Label x:Name="HeaderText"
+                       HorizontalTextAlignment="Center"
+                       HorizontalOptions="CenterAndExpand"
+                       Text="{Binding Header}"
+                       FontFamily="{StaticResource TextRegular}"
+                       FontSize="Title"
+                       TextColor="{x:DynamicResource AccentBase}"/>
+
+                <Label x:Name="Text"
+                       HorizontalTextAlignment="Center"
+                       HorizontalOptions="CenterAndExpand"
+                       Text="{Binding Text}"
+                       FontFamily="{StaticResource TextRegular}"
+                       FontSize="Small"
+                       TextColor="White"/>
+
+            </StackLayout>
+        </Grid>
+
+        <Grid x:Name="NewCircleContainer"
+              Grid.Row="1"
+              Grid.RowSpan="1"
+              HorizontalOptions="FillAndExpand"
+              VerticalOptions="FillAndExpand">
+
+            <Grid x:Name="LottieContainer"
+                  HeightRequest="{Binding Width, Source={x:Reference NewCircleContainer}}"
+                  WidthRequest="{Binding Width, Source={x:Reference NewCircleContainer}}"
+                  VerticalOptions="CenterAndExpand"
+                  Scale="1">
+
+                <lottie:SKLottieView x:Name="MainIcon"
+                                     Source="{Binding HeroBannerLottie}"
+                                     RepeatMode="Restart"
+                                     RepeatCount="{Binding RepeatCount}"
+                                     IsAnimationEnabled="True"
+                                     InputTransparent="True"
+                                     AutomationProperties.IsInAccessibleTree="False"/>
+            </Grid>
+        </Grid>
+    </Grid>
+</Grid>
